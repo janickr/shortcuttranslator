@@ -23,6 +23,7 @@
 
 package be.janickreynders.shortcuttranslator;
 
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.Shortcut;
 import com.intellij.openapi.keymap.Keymap;
 import com.intellij.openapi.keymap.KeymapUtil;
@@ -32,14 +33,13 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.util.text.StringUtil;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.event.*;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ShortcutTranslatorDialog extends DialogWrapper {
+    public static final String SOURCE_KEYMAP = "ShortcutTranslatorSourceKeymap";
+    public static final String TARGET_KEYMAP = "ShortcutTranslatorTargetKeymap";
     private JPanel contentPane;
     private JComboBox sourceComboBox;
     private JLabel sourceShortcut;
@@ -57,18 +57,23 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
         super(project);
         setModal(true);
         setTitle("Translate Shortcut");
-        sourceComboBox.addKeyListener(adapter);
-        targetComboBox.addKeyListener(adapter);
 
+        addKeymaps(sourceComboBox, "Eclipse", SOURCE_KEYMAP);
+        addKeymaps(targetComboBox, "$default", TARGET_KEYMAP);
+
+        init();
+    }
+
+    private KeymapManagerEx addKeymaps(JComboBox comboBox, String defaultKeymap, String property) {
+        comboBox.addKeyListener(adapter);
+        PropertiesComponent properties = PropertiesComponent.getInstance();
         KeymapManagerEx keymapManager = KeymapManagerEx.getInstanceEx();
         for (Keymap keymap : keymapManager.getAllKeymaps()) {
-            sourceComboBox.addItem(keymap);
-            targetComboBox.addItem(keymap);
+            comboBox.addItem(keymap);
         }
-
-        sourceComboBox.setSelectedItem(keymapManager.getKeymap("Eclipse"));
-        targetComboBox.setSelectedItem(keymapManager.getActiveKeymap());
-        init();
+        String keymap = properties.getValue(property, defaultKeymap);
+        comboBox.setSelectedItem(keymapManager.getKeymap(keymap));
+        return keymapManager;
     }
 
     private void handleKeyEventAsShortcut(KeyEvent e) {
@@ -108,5 +113,12 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
     @Override
     protected Action[] createActions() {
         return new Action[] { getOKAction() };
+    }
+
+    @Override
+    protected void dispose() {
+        PropertiesComponent.getInstance().setValue(SOURCE_KEYMAP, ((Keymap)sourceComboBox.getSelectedItem()).getName());
+        PropertiesComponent.getInstance().setValue(TARGET_KEYMAP, ((Keymap)targetComboBox.getSelectedItem()).getName());
+        super.dispose();
     }
 }
