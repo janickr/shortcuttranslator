@@ -25,9 +25,16 @@
   <name>Shortcut Translator</name>
   <description>Translates shortcuts from one keymap to another.
       For developers who want to learn the default IntelliJ shortcuts but are used to the shortcuts of another IDE</description>
-  <change-notes>The plugin remembers which keymaps were selected</change-notes>
+  <change-notes><![CDATA[
+          <p>version 0.6</p>
+          <ul>
+            <li>The plugin remembers which keymaps were selected</li>
+            <li>More information is given about the action the shortcut performs</li>
+            <li>Fixed minor layout issues</li>
+          </ul>
+  ]]></change-notes>
 
-  <version>0.5</version>
+  <version>0.6</version>
   <vendor>Janick Reynders</vendor>
   <idea-version since-build="8000"/>
 
