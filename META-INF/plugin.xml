@@ -21,10 +21,12 @@
   ~ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   -->
 
-<idea-plugin version="2">
+<idea-plugin version="2" url="https://github.com/janickr/shortcuttranslator">
   <name>Shortcut Translator</name>
   <description>Translates shortcuts from one keymap to another.
       For developers who want to learn the default IntelliJ shortcuts but are used to the shortcuts of another IDE</description>
+  <change-notes>The plugin remembers which keymaps were selected</change-notes>
+
   <version>0.5</version>
   <vendor>Janick Reynders</vendor>
   <idea-version since-build="8000"/>
