@@ -22,10 +22,15 @@
   -->
 
 <idea-plugin version="2" url="https://github.com/janickr/shortcuttranslator">
+  <depends>com.intellij.modules.platform</depends>
   <name>Shortcut Translator</name>
   <description>Translates shortcuts from one keymap to another.
       For developers who want to learn the default IntelliJ shortcuts but are used to the shortcuts of another IDE</description>
   <change-notes><![CDATA[
+          <p>version 1.0</p>
+          <ul>
+            <li>Made the plugin available for multiple JetBrains IDEs</li>
+          </ul>
           <p>version 0.6</p>
           <ul>
             <li>The plugin remembers which keymaps were selected</li>
@@ -34,7 +39,7 @@
           </ul>
   ]]></change-notes>
 
-  <version>0.6</version>
+  <version>1.0</version>
   <vendor>Janick Reynders</vendor>
   <idea-version since-build="8000"/>
 
