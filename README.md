@@ -18,6 +18,8 @@ Usage
 Once installed, Ctrl+Shift+K brings up the dialog, any shortcut you press when the dialog is shown is translated from 
 the selected source keymap to the selected target keymap. Press Esc, or click 'Ok' to close the dialog again.
 
+![Screenshot](https://github.com/janickr/shortcuttranslator/raw/master/screenshot.png "Screenshot")
+
 Copyright and License
 ---------------------
 Copyright &copy; 2012-, Janick Reynders. Licensed under [MIT License].
