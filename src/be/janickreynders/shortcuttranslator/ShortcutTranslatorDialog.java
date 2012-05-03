@@ -70,7 +70,7 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
         init();
     }
 
-    private KeymapManagerEx addKeymaps(JComboBox comboBox, String defaultKeymap, String property) {
+    private void addKeymaps(JComboBox comboBox, String defaultKeymap, String property) {
         comboBox.addKeyListener(adapter);
         PropertiesComponent properties = PropertiesComponent.getInstance();
         KeymapManagerEx keymapManager = KeymapManagerEx.getInstanceEx();
@@ -79,7 +79,6 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
         }
         String keymap = properties.getValue(property, defaultKeymap);
         comboBox.setSelectedItem(keymapManager.getKeymap(keymap));
-        return keymapManager;
     }
 
     private void handleKeyEventAsShortcut(KeyEvent e) {
