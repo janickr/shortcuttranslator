@@ -33,6 +33,10 @@
 
   </description>
   <change-notes><![CDATA[
+          <p>version 1.0.1</p>
+          <ul>
+            <li>Added button to swap source and destination keymaps (Mark T. Kennedy)</li>
+          </ul>
           <p>version 1.0</p>
           <ul>
             <li>Made the plugin available for multiple JetBrains IDEs</li>
