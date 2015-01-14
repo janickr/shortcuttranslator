@@ -99,7 +99,7 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
 
     private void handleKeyEventAsShortcut(KeyEvent e) {
         KeyStroke stroke = KeyStroke.getKeyStrokeForEvent(e);
-        sourceShortcut.setText(KeymapUtil.getKeystrokeText(stroke));
+        sourceShortcut.setText(KeymapUtil.getKeystrokeText(stroke).replace("Shift+Shift", "Shift").replace("Ctrl+Ctrl", "Ctrl").replace("Ctrl+Shift+Ctrl", "Ctrl+Shift"));
 
         Set<ShortcutDescription> descriptions = translateShortcut(stroke, getSource(), getTarget());
         displayDescriptions(descriptions);
