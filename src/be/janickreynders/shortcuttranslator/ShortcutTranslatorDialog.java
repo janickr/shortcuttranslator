@@ -38,8 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -51,11 +50,26 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
     private JLabel sourceShortcut;
     private JComboBox targetComboBox;
     private JPanel translatedShortcuts;
+    private JButton swapKeymaps;
+    private KeyEvent lastKeyEvent;
 
     private KeyAdapter adapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
+            lastKeyEvent = e;
             handleKeyEventAsShortcut(e);
+        }
+    };
+
+    private ActionListener swapKeymapsActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Keymap target = getTarget();
+            Keymap source = getSource();
+            targetComboBox.setSelectedItem(source);
+            sourceComboBox.setSelectedItem(target);
+            if (lastKeyEvent != null)
+                handleKeyEventAsShortcut(lastKeyEvent);
         }
     };
 
@@ -66,6 +80,8 @@ public class ShortcutTranslatorDialog extends DialogWrapper {
 
         addKeymaps(sourceComboBox, "Eclipse", SOURCE_KEYMAP);
         addKeymaps(targetComboBox, "$default", TARGET_KEYMAP);
+
+        swapKeymaps.addActionListener(swapKeymapsActionListener);
 
         init();
     }
